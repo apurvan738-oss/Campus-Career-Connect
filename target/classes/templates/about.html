@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - DRIEMS CAMPUS PLACEMENT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content py-5">
+        <div class="container">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <img th:src="@{/images/driems-logo.svg}" alt="DRIEMS Logo" style="height: 80px; width: auto;" class="bg-white p-2 rounded shadow-sm mb-3">
+                <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill fw-bold text-uppercase d-block col-fit mx-auto mb-2" style="width: fit-content;">Institutional Profile</span>
+                <h2 class="display-6 fw-bold">Training &amp; Placement Cell - DRIEMS</h2>
+                <p class="lead text-muted col-lg-8 mx-auto">
+                    DRIEMS, Dilkap Mamdapur, Dilkap College Road, Post Neral, Taluka Karjat, District Raigad, Maharashtra – 410101, India. Bridging students with national and global multinational corporations through rigorous training and recruitment drives.
+                </p>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 h-100">
+                        <div class="stat-icon-box bg-primary-subtle text-primary mb-3">
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">Our Vision</h4>
+                        <p class="text-muted small">
+                            To achieve 100% placement for eligible students across IT services, digital engineering, core manufacturing, power utilities, and financial technology sectors.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 h-100">
+                        <div class="stat-icon-box bg-success-subtle text-success mb-3">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">Our Mission</h4>
+                        <p class="text-muted small">
+                            Deliver soft skills training, coding bootcamps, aptitude mastery sessions, and mock interviews tailored to recruiters like TCS, Infosys, Wipro, Directi, and Tata Power.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card card-custom p-4 h-100">
+                        <div class="stat-icon-box bg-warning-subtle text-warning mb-3">
+                            <i class="bi bi-buildings-fill"></i>
+                        </div>
+                        <h4 class="fw-bold mb-2">Corporate Relations</h4>
+                        <p class="text-muted small">
+                            Active corporate ties with Tata Consultancy Services (TCS), Infosys, Wipro, Accenture, IBM, Cognizant, Capgemini, Hexaware, Bharat Forge, Reliance, and Tejas Constructions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="card card-custom bg-light p-4 border-0 mb-5 text-center">
+                <div class="row g-4">
+                    <div class="col-6 col-md-3">
+                        <h3 class="fw-bold text-primary mb-1" th:text="${stats.placementRate + '%'}">90%</h3>
+                        <div class="small text-muted">Placement Rate</div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h3 class="fw-bold text-success mb-1" th:text="${stats.highestPackage + ' LPA'}">24.5 LPA</h3>
+                        <div class="small text-muted">Highest Salary Offer</div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h3 class="fw-bold text-info mb-1" th:text="${stats.activeCompanies}">20+</h3>
+                        <div class="small text-muted">Corporate Recruiters</div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <h3 class="fw-bold text-warning mb-1" th:text="${stats.placedStudents}">38</h3>
+                        <div class="small text-muted">Offers Accepted</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infrastructure & Contact -->
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-3">Campus Placement Infrastructure at DRIEMS</h3>
+                    <p class="text-muted">
+                        Our modern campus in Maharashtra provides top-tier facilities dedicated to smooth recruitment operations:
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span>Central Computing Centers with 500+ networked systems for online coding assessments.</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span>15 Dedicated air-conditioned Interview Cubicles &amp; Video Conferencing suites.</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span>1000-capacity Central Auditorium for Corporate Pre-Placement Talks (PPT).</span>
+                        </li>
+                        <li class="mb-2 d-flex align-items-center gap-2">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <span>High-speed dedicated leased-line gigabit internet connectivity.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card card-custom p-4 border bg-white shadow-sm">
+                        <h5 class="fw-bold text-primary mb-3">DRIEMS T&amp;P Cell Contact</h5>
+                        <p class="mb-2"><strong>Head of Placement:</strong> Training &amp; Placement Cell, DRIEMS</p>
+                        <p class="mb-2"><strong>Official Website:</strong> <a href="https://driems.in" target="_blank" class="text-primary fw-bold text-decoration-none">driems.in</a></p>
+                        <p class="mb-2"><strong>Email:</strong> tpo@driems.in</p>
+                        <p class="mb-2"><strong>Phone:</strong> +91 86050 00842</p>
+                        <p class="mb-0"><strong>Location:</strong> Dilkap Mamdapur, Dilkap College Road, Post Neral, Taluka Karjat, District Raigad, Maharashtra – 410101, India.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

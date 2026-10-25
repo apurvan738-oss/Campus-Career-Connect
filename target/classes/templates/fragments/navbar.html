@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark navbar-placement sticky-top">
+    <div class="container-fluid px-lg-4">
+        <!-- DRIEMS Brand & Crest -->
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" th:href="@{/}">
+            <img th:src="@{/images/driems-logo.svg}" alt="DRIEMS Logo" style="height: 42px; width: auto;" class="rounded bg-white p-1 shadow-sm">
+            <div class="d-flex flex-column leading-none">
+                <span class="fs-5 tracking-wide text-white">DRIEMS <span class="text-warning">CAMPUS PLACEMENT</span></span>
+                <span class="text-light opacity-75" style="font-size: 0.65rem; letter-spacing: 0.05em;">TRAINING &amp; PLACEMENT CELL</span>
+            </div>
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- Left Navigation Links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}"><i class="bi bi-house-door me-1"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/jobs}"><i class="bi bi-briefcase me-1"></i> Placement Drives</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/announcements}"><i class="bi bi-megaphone me-1"></i> Notice Board</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/guidelines}"><i class="bi bi-journal-text me-1"></i> Guidelines</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/about}"><i class="bi bi-info-circle me-1"></i> About DRIEMS TPO</a>
+                </li>
+
+                <!-- Student shortcut -->
+                <li class="nav-item" sec:authorize="hasRole('STUDENT')">
+                    <a class="nav-link text-info fw-semibold" th:href="@{/student/dashboard}">
+                        <i class="bi bi-speedometer2 me-1"></i> Student Portal
+                    </a>
+                </li>
+
+                <!-- Officer shortcut -->
+                <li class="nav-item" sec:authorize="hasRole('PLACEMENT_OFFICER')">
+                    <a class="nav-link text-warning fw-semibold" th:href="@{/officer/dashboard}">
+                        <i class="bi bi-shield-check me-1"></i> Officer Admin
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Right User / Auth Actions -->
+            <div class="d-flex align-items-center gap-2">
+                <!-- If Not Authenticated -->
+                <div sec:authorize="!isAuthenticated()" class="d-flex gap-2">
+                    <a th:href="@{/login}" class="btn btn-outline-light btn-sm px-3">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                    </a>
+                    <a th:href="@{/register}" class="btn btn-warning btn-sm px-3 text-dark fw-semibold">
+                        <i class="bi bi-person-plus me-1"></i> Student Register
+                    </a>
+                </div>
+
+                <!-- If Authenticated -->
+                <div sec:authorize="isAuthenticated()" class="dropdown">
+                    <button class="btn btn-dark btn-sm dropdown-toggle d-flex align-items-center gap-2 border border-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle fs-5 text-warning"></i>
+                        <span class="d-none d-md-inline text-white" sec:authentication="name">User</span>
+                        <span sec:authorize="hasRole('PLACEMENT_OFFICER')" class="badge bg-warning text-dark small">OFFICER</span>
+                        <span sec:authorize="hasRole('STUDENT')" class="badge bg-primary small">STUDENT</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                        <!-- Student Menu -->
+                        <li sec:authorize="hasRole('STUDENT')">
+                            <a class="dropdown-item" th:href="@{/student/dashboard}"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+                        </li>
+                        <li sec:authorize="hasRole('STUDENT')">
+                            <a class="dropdown-item" th:href="@{/student/profile}"><i class="bi bi-person-badge me-2"></i> My Profile</a>
+                        </li>
+                        <li sec:authorize="hasRole('STUDENT')">
+                            <a class="dropdown-item" th:href="@{/student/applications}"><i class="bi bi-send-check me-2"></i> My Applications</a>
+                        </li>
+
+                        <!-- Officer Menu -->
+                        <li sec:authorize="hasRole('PLACEMENT_OFFICER')">
+                            <a class="dropdown-item" th:href="@{/officer/dashboard}"><i class="bi bi-speedometer2 me-2"></i> Admin Dashboard</a>
+                        </li>
+                        <li sec:authorize="hasRole('PLACEMENT_OFFICER')">
+                            <a class="dropdown-item" th:href="@{/officer/applications}"><i class="bi bi-person-lines-fill me-2"></i> Manage Applicants</a>
+                        </li>
+                        <li sec:authorize="hasRole('PLACEMENT_OFFICER')">
+                            <a class="dropdown-item" th:href="@{/officer/jobs}"><i class="bi bi-briefcase me-2"></i> Manage Job Drives</a>
+                        </li>
+                        <li sec:authorize="hasRole('PLACEMENT_OFFICER')">
+                            <a class="dropdown-item" th:href="@{/officer/reports}"><i class="bi bi-bar-chart-line me-2"></i> Placement Reports</a>
+                        </li>
+
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/change-password}"><i class="bi bi-key me-2"></i> Change Password</a>
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="post" class="d-inline">
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</html>

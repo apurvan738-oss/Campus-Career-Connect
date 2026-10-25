@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Officer Dashboard - DRIEMS CAMPUS PLACEMENT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+    <!-- Chart.js for real-time analytics graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body class="bg-light">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content py-4">
+        <div class="container-fluid px-lg-4">
+
+            <div th:replace="~{fragments/alerts :: alerts}"></div>
+
+            <div class="row g-4">
+                <!-- Sidebar -->
+                <div class="col-lg-2">
+                    <div th:replace="~{fragments/officer_sidebar :: officer_sidebar('dashboard')}"></div>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="col-lg-10">
+
+                    <!-- Header & Quick Actions -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+                        <div>
+                            <h2 class="fw-bold mb-1">Placement Officer Dashboard</h2>
+                            <p class="text-muted small mb-0">Overview of campus recruitment metrics, student applications, and placement drives</p>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a th:href="@{/officer/jobs/new}" class="btn btn-navy btn-sm">
+                                <i class="bi bi-plus-circle me-1"></i> Post New Job Drive
+                            </a>
+                            <a th:href="@{/officer/companies/new}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-building-add me-1"></i> Add Company
+                            </a>
+                            <a th:href="@{/officer/reports/export/summary}" class="btn btn-outline-success btn-sm">
+                                <i class="bi bi-file-earmark-excel me-1"></i> Export Master CSV
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 6 KPI Metric Cards -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 border-0 bg-white shadow-sm">
+                                <span class="text-muted small fw-semibold">Total Students</span>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <h3 class="fw-bold mb-0 text-dark" th:text="${stats.totalStudents}">45</h3>
+                                    <div class="stat-icon-box bg-primary-subtle text-primary">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 border-0 bg-white shadow-sm">
+                                <span class="text-muted small fw-semibold">Placed Students</span>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <h3 class="fw-bold mb-0 text-success" th:text="${stats.placedStudents}">38</h3>
+                                    <div class="stat-icon-box bg-success-subtle text-success">
+                                        <i class="bi bi-patch-check-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 border-0 bg-white shadow-sm">
+                                <span class="text-muted small fw-semibold">Placement Rate</span>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <h3 class="fw-bold mb-0 text-primary" th:text="${stats.placementRate + '%'}">84.4%</h3>
+                                    <div class="stat-icon-box bg-info-subtle text-info">
+                                        <i class="bi bi-percent"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 border-0 bg-white shadow-sm">
+                                <span class="text-muted small fw-semibold">Partner Companies</span>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <h3 class="fw-bold mb-0 text-secondary" th:text="${stats.activeCompanies}">6</h3>
+                                    <div class="stat-icon-box bg-light text-secondary border">
+                                        <i class="bi bi-buildings-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 border-0 bg-white shadow-sm">
+                                <span class="text-muted small fw-semibold">Open Drives</span>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <h3 class="fw-bold mb-0 text-warning" th:text="${stats.openJobs}">4</h3>
+                                    <div class="stat-icon-box bg-warning-subtle text-warning">
+                                        <i class="bi bi-briefcase-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-xl-2">
+                            <div class="card card-custom p-3 border-0 bg-white shadow-sm">
+                                <span class="text-muted small fw-semibold">Applications</span>
+                                <div class="d-flex justify-content-between align-items-center mt-2">
+                                    <h3 class="fw-bold mb-0 text-indigo" th:text="${stats.totalApplications}">18</h3>
+                                    <div class="stat-icon-box bg-purple-subtle text-primary">
+                                        <i class="bi bi-file-earmark-text-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-lg-7">
+                            <div class="card card-custom p-4 border-0 shadow-sm bg-white h-100">
+                                <h5 class="fw-bold text-dark mb-3">
+                                    <i class="bi bi-bar-chart-line text-primary me-2"></i> Placements by Engineering Branch
+                                </h5>
+                                <div style="position: relative; height: 260px;">
+                                    <canvas id="branchChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="card card-custom p-4 border-0 shadow-sm bg-white h-100">
+                                <h5 class="fw-bold text-dark mb-3">
+                                    <i class="bi bi-pie-chart text-success me-2"></i> Application Status Distribution
+                                </h5>
+                                <div style="position: relative; height: 260px;">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Applications Table -->
+                    <div class="card card-custom p-4 border-0 shadow-sm bg-white mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0">
+                                    <i class="bi bi-person-lines-fill text-primary me-2"></i> Recent Student Applications
+                                </h5>
+                                <span class="small text-muted">Review, shortlist, or select candidates directly</span>
+                            </div>
+                            <a th:href="@{/officer/applications}" class="btn btn-navy-outline btn-sm">
+                                View Full Applicant Console &rarr;
+                            </a>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-custom table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Roll Number</th>
+                                        <th>Branch</th>
+                                        <th>CGPA</th>
+                                        <th>Company &amp; Role</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="app : ${recentApplications}">
+                                        <td>
+                                            <div class="fw-bold text-dark" th:text="${app.student.fullName}">Student Name</div>
+                                            <div class="small text-muted" th:text="${app.student.user.email}">email</div>
+                                        </td>
+                                        <td class="font-monospace small" th:text="${app.student.rollNumber}">2021BCSE001</td>
+                                        <td><span class="badge bg-light text-dark border" th:text="${app.student.branch}">CSE</span></td>
+                                        <td class="fw-bold text-primary" th:text="${app.student.cgpa}">8.85</td>
+                                        <td>
+                                            <div class="fw-semibold text-dark" th:text="${app.jobPosting.title}">Job Title</div>
+                                            <div class="small text-muted" th:text="${app.jobPosting.company.name + ' (' + app.jobPosting.salaryPackageLpa + ' LPA)'}">Company</div>
+                                        </td>
+                                        <td>
+                                            <span th:class="${'badge ' + app.status.badgeClass}" th:text="${app.status.displayName}">APPLIED</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                                        data-bs-toggle="modal"
+                                                        th:data-bs-target="${'#statusModal' + app.id}"
+                                                        title="Update Status">
+                                                    <i class="bi bi-pencil-square"></i> Status
+                                                </button>
+                                                <a th:if="${app.student.resumeFileName != null}"
+                                                   th:href="@{/officer/students/{id}/resume(id=${app.student.id})}"
+                                                   class="btn btn-sm btn-outline-secondary"
+                                                   title="Download Resume">
+                                                    <i class="bi bi-download"></i>
+                                                </a>
+                                            </div>
+
+                                            <!-- Status Update Modal for this row -->
+                                            <div class="modal fade" th:id="${'statusModal' + app.id}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content text-start">
+                                                        <form th:action="@{/officer/applications/{id}/status(id=${app.id})}" method="post">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title fw-bold">Update Applicant Status</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="p-2 bg-light rounded mb-3 small">
+                                                                    <strong>Student:</strong> <span th:text="${app.student.fullName}">Name</span> |
+                                                                    <strong>Job:</strong> <span th:text="${app.jobPosting.title}">Job</span>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold small">New Application Status</label>
+                                                                    <select name="status" class="form-select" required>
+                                                                        <option value="APPLIED" th:selected="${app.status.name() == 'APPLIED'}">APPLIED</option>
+                                                                        <option value="SHORTLISTED" th:selected="${app.status.name() == 'SHORTLISTED'}">SHORTLISTED</option>
+                                                                        <option value="SELECTED" th:selected="${app.status.name() == 'SELECTED'}">SELECTED (Placed)</option>
+                                                                        <option value="REJECTED" th:selected="${app.status.name() == 'REJECTED'}">REJECTED</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold small">Interview Rounds Cleared</label>
+                                                                    <input type="number" name="interviewRoundsCleared" th:value="${app.interviewRoundsCleared}" min="0" max="10" class="form-control">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold small">Officer Remarks / Feedback</label>
+                                                                    <textarea name="officerNotes" class="form-control" rows="2" th:text="${app.officerNotes}" placeholder="e.g. Cleared round 1 coding test; technical round on Monday."></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                                <button type="submit" class="btn btn-navy btn-sm px-4">Save Status</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js Live Data Injection -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const branchData = /*[[${stats.branchWisePlacements}]]*/ {};
+        const statusData = /*[[${stats.statusDistribution}]]*/ {};
+
+        // 1. Branch Chart
+        const branchLabels = Object.keys(branchData).length > 0 ? Object.keys(branchData) : ['CSE', 'ECE', 'IT', 'ME'];
+        const branchValues = Object.keys(branchData).length > 0 ? Object.values(branchData) : [12, 8, 10, 4];
+
+        new Chart(document.getElementById('branchChart'), {
+            type: 'bar',
+            data: {
+                labels: branchLabels,
+                datasets: [{
+                    label: 'Placed Students',
+                    data: branchValues,
+                    backgroundColor: '#1e3a8a',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+
+        // 2. Status Chart
+        const statusLabels = Object.keys(statusData).length > 0 ? Object.keys(statusData) : ['Applied', 'Shortlisted', 'Selected', 'Rejected'];
+        const statusValues = Object.keys(statusData).length > 0 ? Object.values(statusData) : [6, 4, 8, 2];
+
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: statusLabels,
+                datasets: [{
+                    data: statusValues,
+                    backgroundColor: ['#2563eb', '#f59e0b', '#10b981', '#ef4444', '#64748b']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>
