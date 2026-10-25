@@ -1,0 +1,164 @@
+/* Custom Styling - Student Placement Management System */
+:root {
+    --primary-navy: #0f172a;
+    --navy-dark: #090d16;
+    --navy-blue: #1e3a8a;
+    --navy-accent: #2563eb;
+    --navy-light: #eff6ff;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --surface-bg: #f8fafc;
+    --card-border: #e2e8f0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--surface-bg);
+    color: #1e293b;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1 0 auto;
+}
+
+/* Navbar */
+.navbar-placement {
+    background-color: var(--primary-navy);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-placement .nav-link {
+    color: #cbd5e1;
+    font-weight: 500;
+    padding: 0.5rem 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.navbar-placement .nav-link:hover,
+.navbar-placement .nav-link.active {
+    color: #ffffff;
+}
+
+/* Hero Section */
+.hero-gradient {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #1d4ed8 100%);
+    color: #ffffff;
+}
+
+/* Cards & Badges */
+.card-custom {
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.stat-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+}
+
+/* Sidebar Dashboard */
+.sidebar-sticky {
+    position: sticky;
+    top: 1rem;
+}
+
+.sidebar-nav .nav-link {
+    color: #475569;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: #f1f5f9;
+    color: var(--navy-blue);
+}
+
+.sidebar-nav .nav-link.active {
+    background-color: #dbeafe;
+    color: var(--navy-blue);
+    font-weight: 600;
+}
+
+/* Table styling */
+.table-custom th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table-custom td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+/* Progress bar */
+.progress-completeness {
+    height: 8px;
+    border-radius: 4px;
+}
+
+/* Buttons */
+.btn-navy {
+    background-color: var(--navy-blue);
+    color: #ffffff;
+    border-color: var(--navy-blue);
+}
+
+.btn-navy:hover {
+    background-color: #1e40af;
+    color: #ffffff;
+    border-color: #1e40af;
+}
+
+.btn-navy-outline {
+    background-color: transparent;
+    color: var(--navy-blue);
+    border: 1px solid var(--navy-blue);
+}
+
+.btn-navy-outline:hover {
+    background-color: var(--navy-blue);
+    color: #ffffff;
+}
+
+/* Footer */
+footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+}
+
+footer a {
+    color: #cbd5e1;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}

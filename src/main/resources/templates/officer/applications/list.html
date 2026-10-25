@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applicant Review Console - Placement Officer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body class="bg-light">
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content py-4">
+        <div class="container-fluid px-lg-4">
+
+            <div th:replace="~{fragments/alerts :: alerts}"></div>
+
+            <div class="row g-4">
+                <div class="col-lg-2">
+                    <div th:replace="~{fragments/officer_sidebar :: officer_sidebar('applications')}"></div>
+                </div>
+
+                <div class="col-lg-10">
+                    <!-- Title & Export -->
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+                        <div>
+                            <h2 class="fw-bold mb-1">Applicant Review &amp; Tracking</h2>
+                            <p class="text-muted small mb-0">Evaluate student applications, progress selection stages, and export reports</p>
+                        </div>
+                        <a th:href="@{/officer/applications/export(jobId=${selectedJobId}, status=${selectedStatus}, branch=${selectedBranch}, keyword=${keyword})}" class="btn btn-outline-success btn-sm">
+                            <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export Filtered CSV
+                        </a>
+                    </div>
+
+                    <!-- Filter Console -->
+                    <div class="card card-custom p-4 border-0 shadow-sm bg-white mb-4">
+                        <form th:action="@{/officer/applications}" method="get" class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label small fw-semibold text-muted">Recruitment Drive</label>
+                                <select name="jobId" class="form-select form-select-sm">
+                                    <option value="">All Drives</option>
+                                    <option th:each="j : ${jobs}" th:value="${j.id}" th:text="${j.company.name + ' - ' + j.title}" th:selected="${selectedJobId == j.id}">Job</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label small fw-semibold text-muted">Status</label>
+                                <select name="status" class="form-select form-select-sm">
+                                    <option value="">All Statuses</option>
+                                    <option th:each="st : ${statuses}" th:value="${st}" th:text="${st.displayName}" th:selected="${selectedStatus == st}">Status</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label small fw-semibold text-muted">Branch</label>
+                                <select name="branch" class="form-select form-select-sm">
+                                    <option value="">All Branches</option>
+                                    <option th:each="b : ${branches}" th:value="${b}" th:text="${b}" th:selected="${selectedBranch == b}">CSE</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-3">
+                                <label class="form-label small fw-semibold text-muted">Student Search</label>
+                                <input type="text" name="keyword" th:value="${keyword}" class="form-control form-control-sm" placeholder="Student name or roll number...">
+                            </div>
+
+                            <div class="col-md-2 d-flex align-items-end gap-1">
+                                <button type="submit" class="btn btn-navy btn-sm w-100">
+                                    <i class="bi bi-funnel"></i> Filter
+                                </button>
+                                <a th:href="@{/officer/applications}" class="btn btn-outline-secondary btn-sm" title="Clear Filters">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Applications Table -->
+                    <div class="card card-custom p-4 border-0 shadow-sm bg-white">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="fw-semibold text-dark small" th:text="${#lists.size(applications) + ' Applications Found'}">10 Applications</span>
+                        </div>
+
+                        <div class="table-responsive" th:if="${not #lists.isEmpty(applications)}">
+                            <table class="table table-custom table-hover align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Roll Number</th>
+                                        <th>Branch</th>
+                                        <th>CGPA</th>
+                                        <th>Company &amp; Drive</th>
+                                        <th>Package</th>
+                                        <th>Status</th>
+                                        <th>Rounds</th>
+                                        <th>Resume</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="app : ${applications}">
+                                        <td>
+                                            <div class="fw-bold text-dark">
+                                                <a th:href="@{/officer/students/{id}(id=${app.student.id})}" class="text-dark text-decoration-none" th:text="${app.student.fullName}">Name</a>
+                                            </div>
+                                            <div class="small text-muted" th:text="${app.student.user.email}">email</div>
+                                        </td>
+                                        <td class="font-monospace small" th:text="${app.student.rollNumber}">2021BCSE001</td>
+                                        <td><span class="badge bg-light text-dark border" th:text="${app.student.branch}">CSE</span></td>
+                                        <td class="fw-bold text-primary" th:text="${app.student.cgpa}">8.85</td>
+                                        <td>
+                                            <div class="fw-semibold text-dark" th:text="${app.jobPosting.title}">Role</div>
+                                            <div class="small text-muted" th:text="${app.jobPosting.company.name}">Company</div>
+                                        </td>
+                                        <td class="fw-bold text-success" th:text="${app.jobPosting.salaryPackageLpa + ' LPA'}">18 LPA</td>
+                                        <td>
+                                            <span th:class="${'badge ' + app.status.badgeClass}" th:text="${app.status.displayName}">APPLIED</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info-subtle text-info" th:text="${app.interviewRoundsCleared + ' cleared'}">0</span>
+                                        </td>
+                                        <td>
+                                            <a th:if="${app.student.resumeFileName != null}"
+                                               th:href="@{/officer/students/{id}/resume(id=${app.student.id})}"
+                                               class="btn btn-sm btn-outline-danger py-0 px-2"
+                                               title="Download Resume">
+                                                <i class="bi bi-file-earmark-pdf"></i>
+                                            </a>
+                                            <span th:if="${app.student.resumeFileName == null}" class="text-muted small">None</span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-navy"
+                                                    data-bs-toggle="modal"
+                                                    th:data-bs-target="${'#statusModal' + app.id}">
+                                                Update Status
+                                            </button>
+
+                                            <!-- Status Modal -->
+                                            <div class="modal fade" th:id="${'statusModal' + app.id}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <form th:action="@{/officer/applications/{id}/status(id=${app.id})}" method="post">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title fw-bold">Update Applicant Status</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="p-2 bg-light rounded mb-3 small">
+                                                                    <strong>Student:</strong> <span th:text="${app.student.fullName}">Name</span> (<span th:text="${app.student.rollNumber}">Roll</span>)<br>
+                                                                    <strong>Drive:</strong> <span th:text="${app.jobPosting.title + ' at ' + app.jobPosting.company.name}">Job</span>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold small">Stage / Status</label>
+                                                                    <select name="status" class="form-select" required>
+                                                                        <option value="APPLIED" th:selected="${app.status.name() == 'APPLIED'}">APPLIED</option>
+                                                                        <option value="SHORTLISTED" th:selected="${app.status.name() == 'SHORTLISTED'}">SHORTLISTED</option>
+                                                                        <option value="SELECTED" th:selected="${app.status.name() == 'SELECTED'}">SELECTED (Offer Extended)</option>
+                                                                        <option value="REJECTED" th:selected="${app.status.name() == 'REJECTED'}">REJECTED</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold small">Interview Rounds Cleared</label>
+                                                                    <input type="number" name="interviewRoundsCleared" th:value="${app.interviewRoundsCleared}" min="0" max="10" class="form-control">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label class="form-label fw-semibold small">Placement Officer Remarks</label>
+                                                                    <textarea name="officerNotes" class="form-control" rows="2" th:text="${app.officerNotes}" placeholder="Enter candidate evaluation notes or round instructions..."></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                                                                <button type="submit" class="btn btn-navy btn-sm px-4">Save Status</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div th:if="${#lists.isEmpty(applications)}" class="text-center py-5">
+                            <i class="bi bi-inbox fs-1 text-muted"></i>
+                            <h5 class="text-muted mt-2">No Applications Match Filter Criteria</h5>
+                            <p class="small text-muted">Try resetting the filters or selecting another job drive.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

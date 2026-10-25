@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="footer" class="py-4 mt-auto">
+    <div class="container">
+        <div class="row g-4 mb-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <img th:src="@{/images/driems-logo.svg}" alt="DRIEMS Logo" style="height: 36px; width: auto;" class="bg-white p-1 rounded">
+                    <div>
+                        <h5 class="text-white mb-0 fw-bold">DRIEMS CAMPUS PLACEMENT</h5>
+                        <div class="text-warning small" style="font-size: 0.7rem;">TRAINING &amp; PLACEMENT CELL</div>
+                    </div>
+                </div>
+                <p class="small text-secondary mb-3">
+                    Centralized Training and Placement Portal of DRIEMS, empowering aspiring engineers, technologists, and management graduates with career access to premier global corporations.
+                </p>
+                <div class="text-secondary small">
+                    <div><i class="bi bi-geo-alt-fill text-danger me-1"></i> Dilkap Mamdapur, Dilkap College Road, Post Neral, Taluka Karjat, District Raigad, Maharashtra – 410101, India.</div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6">
+                <h6 class="text-white fw-semibold mb-3">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a th:href="@{/}">Home Portal</a></li>
+                    <li class="mb-2"><a th:href="@{/jobs}">Open Drives</a></li>
+                    <li class="mb-2"><a th:href="@{/announcements}">Notice Board</a></li>
+                    <li class="mb-2"><a th:href="@{/guidelines}">Placement Code</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="text-white fw-semibold mb-3">Student Support</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a th:href="@{/register}">Student Sign Up</a></li>
+                    <li class="mb-2"><a th:href="@{/login}">Portal Login</a></li>
+                    <li class="mb-2"><a th:href="@{/guidelines}">Resume Standards</a></li>
+                    <li class="mb-2"><a th:href="@{/about}">Placement Cell Contacts</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="text-white fw-semibold mb-3">DRIEMS T&amp;P Office</h6>
+                <p class="small text-secondary mb-1"><strong>Official Website:</strong> <a href="https://driems.in" target="_blank" class="text-warning text-decoration-none">driems.in</a></p>
+                <p class="small text-secondary mb-1"><strong>Email:</strong> tpo@driems.in</p>
+                <p class="small text-secondary mb-1"><strong>Phone:</strong> +91 86050 00842</p>
+                <p class="small text-secondary"><strong>Office Hours:</strong> Mon - Sat: 9:00 AM - 5:00 PM</p>
+            </div>
+        </div>
+        <hr class="border-secondary opacity-25">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small text-secondary">
+            <div>&copy; 2026 DRIEMS CAMPUS PLACEMENT. All rights reserved.</div>
+            <div class="mt-2 mt-sm-0">
+                <span>Engineering &amp; Technology | Spring Boot 3 &amp; MySQL</span>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>

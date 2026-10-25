@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Guidelines &amp; Policy - DRIEMS CAMPUS PLACEMENT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+<body>
+
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-2">Code of Conduct</span>
+                <h2 class="display-6 fw-bold">Placement Policy &amp; Student Guidelines</h2>
+                <p class="lead text-muted col-lg-8 mx-auto">
+                    Standards and regulatory guidelines governing registration, drive applications, interview etiquette, and offer acceptance.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card card-custom p-4 mb-4">
+                        <h4 class="fw-bold text-primary mb-3">1. Registration &amp; Profile Completeness</h4>
+                        <ul class="text-secondary small lh-lg">
+                            <li>All final-year students seeking placement assistance must complete 100% of their online profile, including certified CGPA, 10th and 12th marks, and active phone number.</li>
+                            <li>Uploading a verified resume in standard PDF format (under 5MB) is mandatory before submitting any drive application.</li>
+                            <li>Any misrepresentation of marks, backlogs, or technical credentials will lead to immediate debarment from the placement season.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card card-custom p-4 mb-4">
+                        <h4 class="fw-bold text-primary mb-3">2. "One Student, One Job" Policy &amp; Dream Offer Rules</h4>
+                        <ul class="text-secondary small lh-lg">
+                            <li>Once a student is marked as <strong>SELECTED</strong> by a corporate recruiter, their profile is marked as placed.</li>
+                            <li>Students who receive an initial core or IT service offer under 8 LPA are eligible to apply for "Dream Companies" offering a package of 12 LPA or above (at least 1.5x increment).</li>
+                            <li>Withdrawing from an ongoing interview round after shortlisting without prior written authorization from the TPO is strictly prohibited.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card card-custom p-4 mb-4">
+                        <h4 class="fw-bold text-primary mb-3">3. Attendance &amp; Interview Etiquette</h4>
+                        <ul class="text-secondary small lh-lg">
+                            <li>Formal western attire is strictly enforced for all on-campus and virtual recruitment rounds.</li>
+                            <li>Students must report to test labs 15 minutes prior to scheduled assessment timings with their official college ID card.</li>
+                            <li>Mobile phones, smartwatches, or external materials are forbidden during online coding assessments.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card card-custom p-4 mb-4 bg-light border-0">
+                        <h5 class="fw-bold text-dark mb-3"><i class="bi bi-clock-history me-2 text-primary"></i> Key Timelines</h5>
+                        <div class="mb-3">
+                            <strong class="d-block small">Profile Verification</strong>
+                            <span class="text-muted small">Must be completed within 1 week of registration.</span>
+                        </div>
+                        <div class="mb-3">
+                            <strong class="d-block small">Drive Application Window</strong>
+                            <span class="text-muted small">Closes exactly at 11:59 PM on the declared deadline date.</span>
+                        </div>
+                        <div>
+                            <strong class="d-block small">Offer Acceptance</strong>
+                            <span class="text-muted small">Within 48 hours of official results announcement.</span>
+                        </div>
+                    </div>
+
+                    <div class="card card-custom p-4 border text-center">
+                        <i class="bi bi-file-earmark-pdf fs-1 text-danger mb-2"></i>
+                        <h6 class="fw-bold">Official Placement Handbook</h6>
+                        <p class="small text-muted mb-3">Download the complete academic placement manual and brochure.</p>
+                        <a th:href="@{/jobs}" class="btn btn-navy btn-sm">Browse Active Drives</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
